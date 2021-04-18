@@ -9,13 +9,10 @@ export class AppComponent {
   title = 'todo-app';
   
   getTodos = async() => {
-    const getTodosUrl = 'http://localhost:8080'
+    const getTodosUrl = 'http://app-server-nest.herokuapp.com/todos/'
 
     await fetch(getTodosUrl)
-    .then(response => {
-      console.log(response);
-      response.json();
-    })
+    .then(response => response.json())
     .then(data => console.log(data))
     .catch((error) => {
       console.log(error);
@@ -23,14 +20,14 @@ export class AppComponent {
     })
   }  
 
-  createTodo = async() => {
+  createTodo = async(user_name :any,todo_content :any) => {
     const postTodoUrl = 'http://app-server-nest.herokuapp.com/todos/';
+    console.log(user_name);
     const postObject = {
-      name:'Taro',
-      todo:'myTask3'
+      name:user_name,
+      todo:todo_content
     };
-    console.log ( JSON.stringify(postObject));
-
+    console.log(JSON.stringify(postObject));
     await fetch(postTodoUrl,
         {
           method: "POST",
